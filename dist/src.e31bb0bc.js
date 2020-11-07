@@ -28297,10 +28297,12 @@ var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Name = function Name() {
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", null, "Name:"), _react.default.createElement("input", {
+var Name = function Name(data) {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", null, data.title, ":"), _react.default.createElement("input", {
     type: "text",
-    placeholder: "Name"
+    placeholder: data.title,
+    maxLength: Number(data.max),
+    required: data.required
   }));
 };
 
@@ -28324,7 +28326,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // should be generic, with no code related to one specific type of form
 // see the REUSABLE COMPONENT section for details
 var Form = function Form() {
-  return _react.default.createElement("sub", null, _react.default.createElement(_Name.default, null));
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Name.default, {
+    title: "Name",
+    max: "15",
+    required: "1"
+  }), _react.default.createElement(_Name.default, {
+    title: "Surname",
+    max: "5",
+    required: "0"
+  }));
 };
 
 var _default = Form;
@@ -30738,7 +30748,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37907" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36971" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

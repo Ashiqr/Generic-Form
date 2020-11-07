@@ -1,10 +1,13 @@
 import React from 'react';
 
-const Name = () => {return (
-    <React.Fragment>
-        <span>Name:</span>
-        <input type='text' placeholder='Name'></input> 
-    </React.Fragment>
-    )};
+const  Name = (data) => {
+    return (
+        <React.Fragment>
+            <span>{data.title}:</span>
+            <input type='text' placeholder={data.title} maxLength={Number(data.max)} required={data.required}></input>
+
+        </React.Fragment>
+    )
+};
 
 export default Name;
