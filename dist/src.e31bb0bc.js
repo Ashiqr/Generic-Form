@@ -28413,7 +28413,44 @@ exports.ValidateInput = ValidateInput;
 exports.RequiredInput = RequiredInput;
 exports.OnlyText = OnlyText;
 exports.OnlyNumeric = OnlyNumeric;
-},{}],"Components/Form.js":[function(require,module,exports) {
+},{}],"Components/Submit.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Submit = function Submit(data) {
+  var getFormData = function getFormData(e) {
+    var container = document.getElementById('react-root');
+    var inputs = container.getElementsByTagName('input');
+    var result = {};
+
+    for (var index = 0; index < inputs.length; ++index) {
+      result[inputs[index].name] = inputs[index].value;
+    }
+
+    return result;
+  };
+
+  var handleSubmit = function handleSubmit(e) {
+    console.log(getFormData(e));
+  };
+
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("button", {
+    type: "submit",
+    onClick: handleSubmit
+  }, data.text));
+};
+
+var _default = Submit;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"Components/Form.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -28426,6 +28463,8 @@ var _react = _interopRequireDefault(require("react"));
 var _Name = _interopRequireDefault(require("./Name"));
 
 var _validation = _interopRequireDefault(require("./validation"));
+
+var _Submit = _interopRequireDefault(require("./Submit"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28442,12 +28481,14 @@ var Form = function Form() {
     Validate: function Validate(Name) {
       return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyText], Name);
     }
+  }), _react.default.createElement(_Submit.default, {
+    text: "Submit Form"
   }));
 };
 
 var _default = Form;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./validation":"Components/validation.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./validation":"Components/validation.js","./Submit":"Components/Submit.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30856,7 +30897,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36127" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38327" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

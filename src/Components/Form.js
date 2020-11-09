@@ -4,6 +4,7 @@
 import React from 'react';
 import Name from './Name';
 import validation from './validation';
+import Submit from './Submit';
 
 
 const Form = () => {return (
@@ -12,8 +13,9 @@ const Form = () => {return (
             return validation.ValidateInput([validation.RequiredInput, validation.OnlyText], Name);
         }}/>
         {/* <Name title='Surname' max='5' required='0'/> */}
+        <Submit text='Submit Form'/>
     </React.Fragment>
     )};
     
 
-export default Form
+export default Form;
