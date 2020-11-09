@@ -28312,27 +28312,108 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Name = function Name(data) {
-  // greet = data.fun.bind();
-  var _useState = (0, _react.useState)(''),
+  var _useState = (0, _react.useState)({
+    result: true,
+    message: ''
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      message = _useState2[0],
-      setMessage = _useState2[1];
+      validate = _useState2[0],
+      setValidate = _useState2[1];
 
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("label", null, data.title, ":"), _react.default.createElement("input", {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("label", null, data.label, ":"), _react.default.createElement("input", {
     type: "text",
-    placeholder: data.title,
+    placeholder: data.label,
     maxLength: Number(data.max),
     required: data.required,
-    name: data.title,
+    name: data.name,
     onChange: function onChange(e) {
-      return setMessage(message = data.fun(e.currentTarget.value));
+      return setValidate(validate = data.Validate(e.currentTarget.value));
     }
-  }), _react.default.createElement("p", null, message));
+  }), _react.default.createElement("p", null, validate.message));
 };
 
 var _default = Name;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Components/Form.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"Components/validation.js":[function(require,module,exports) {
+function ValidateInput(functions, input) {
+  for (var fun in functions) {
+    var r = functions[fun](input);
+
+    if (!r.result) {
+      return {
+        result: false,
+        message: r.message
+      };
+    }
+  }
+
+  return {
+    result: true,
+    message: ''
+  };
+}
+
+function ValidateAllInput(functions, input) {
+  var result = [];
+
+  for (var fun in functions) {
+    result.push(functions[fun](input));
+  }
+
+  return result;
+}
+
+function RequiredInput(input) {
+  if (input && input.length > -1) {
+    return {
+      result: true,
+      message: ''
+    };
+  }
+
+  return {
+    result: false,
+    message: 'Input is required'
+  };
+}
+
+function OnlyText(input) {
+  var regex = RegExp(/[^a-zA-Z]/g);
+
+  if (regex.test(input)) {
+    return {
+      result: false,
+      message: 'Input must contain text only'
+    };
+  }
+
+  return {
+    result: true,
+    message: ''
+  };
+}
+
+function OnlyNumeric(input) {
+  var regex = RegExp(/[^0-9]/g);
+
+  if (regex.test(input)) {
+    return {
+      result: false,
+      message: 'Input must contain numbers only'
+    };
+  }
+
+  return {
+    result: true,
+    message: ''
+  };
+}
+
+exports.ValidateInput = ValidateInput;
+exports.RequiredInput = RequiredInput;
+exports.OnlyText = OnlyText;
+exports.OnlyNumeric = OnlyNumeric;
+},{}],"Components/Form.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -28344,6 +28425,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _Name = _interopRequireDefault(require("./Name"));
 
+var _validation = _interopRequireDefault(require("./validation"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // reusable form component goes here
@@ -28351,20 +28434,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // see the REUSABLE COMPONENT section for details
 var Form = function Form() {
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Name.default, {
-    title: "Name",
+    name: "first_name",
+    label: "First Name",
     max: "80",
     required: "1",
     value: '',
-    fun: function fun(Name) {
-      console.log(Name);
-      return 'Hi! ' + Name;
+    Validate: function Validate(Name) {
+      return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyText], Name);
     }
   }));
 };
 
 var _default = Form;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./validation":"Components/validation.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30773,7 +30856,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34703" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36127" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
