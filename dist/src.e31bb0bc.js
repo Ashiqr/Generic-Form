@@ -28306,6 +28306,7 @@ var Name = function Name(data) {
     type: "text",
     placeholder: data.label,
     maxLength: Number(data.max),
+    required: data.required,
     name: data.name,
     onChange: function onChange(e) {
       return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
@@ -28338,11 +28339,9 @@ var Number = function Number(data) {
     min: data.min,
     max: data.max,
     step: data.step,
+    required: data.required,
     name: data.name,
     onChange: function onChange(e) {
-      return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
-    },
-    on: function on(e) {
       return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
     }
   }));
@@ -28504,6 +28503,7 @@ var Form = function Form() {
     label: "First Name",
     max: "25",
     value: '',
+    required: true,
     Validate: function Validate(Name) {
       return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyText], Name);
     }
@@ -28512,6 +28512,7 @@ var Form = function Form() {
     label: "Surname",
     max: "25",
     value: '',
+    required: false,
     Validate: function Validate(Name) {
       return _validation.default.ValidateInput([_validation.default.OnlyText], Name);
     }
@@ -28519,6 +28520,7 @@ var Form = function Form() {
     name: "area_code",
     label: "Area Code",
     value: '',
+    required: false,
     min: 1000,
     max: 99999,
     step: 1,
@@ -28529,6 +28531,7 @@ var Form = function Form() {
     name: "phone_number",
     label: "Phone Number",
     value: '',
+    required: true,
     min: 0,
     max: 9999999999999,
     step: 1,
@@ -30952,7 +30955,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41925" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43637" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
