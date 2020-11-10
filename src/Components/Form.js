@@ -9,11 +9,13 @@ import Submit from './Submit';
 
 const Form = () => {return (
     <React.Fragment>
-        <Name name='first_name' label='First Name' max='80' required='1' value={''} Validate={(Name) => {
-            return validation.ValidateInput([validation.RequiredInput, validation.OnlyText], Name);
-        }}/>
-        {/* <Name title='Surname' max='5' required='0'/> */}
-        <Submit text='Submit Form'/>
+        <form>
+            <Name name='first_name' label='First Name' max='25' required='1' value={''} Validate={(Name) => {
+                return validation.ValidateInput([validation.RequiredInput, validation.OnlyText], Name);
+            }}/>
+            {/* <Name title='Surname' max='5' required='0'/> */}
+            <Submit text='Submit Form' formName='react-root'/>
+        </form>
     </React.Fragment>
     )};
     
