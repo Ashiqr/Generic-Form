@@ -11,7 +11,7 @@ const Submit = (data) => {
                 result[inputs[index].name] = inputs[index].value;
             }
             else{
-                return 'Form Invalid';
+                return 'Form contains invalid input';
             }
         }
         e.preventDefault();

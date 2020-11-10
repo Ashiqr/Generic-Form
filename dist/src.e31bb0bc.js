@@ -28298,7 +28298,6 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Name = function Name(data) {
-  // var [validate, setValidate] = useState({result: true, message: ''});
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("label", {
     style: {
       marginRight: '5px'
@@ -28307,7 +28306,6 @@ var Name = function Name(data) {
     type: "text",
     placeholder: data.label,
     maxLength: Number(data.max),
-    required: data.required,
     name: data.name,
     onChange: function onChange(e) {
       return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
@@ -28316,6 +28314,41 @@ var Name = function Name(data) {
 };
 
 var _default = Name;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"Components/Number.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Number = function Number(data) {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("label", {
+    style: {
+      marginRight: '5px'
+    }
+  }, data.label, ":"), _react.default.createElement("input", {
+    type: "number",
+    placeholder: data.label,
+    min: data.min,
+    max: data.max,
+    step: data.step,
+    name: data.name,
+    onChange: function onChange(e) {
+      return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
+    },
+    on: function on(e) {
+      return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
+    }
+  }));
+};
+
+var _default = Number;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"Components/validation.js":[function(require,module,exports) {
 function ValidateInput(functions, input) {
@@ -28418,7 +28451,7 @@ var Submit = function Submit(data) {
       if (inputs[index].checkValidity()) {
         result[inputs[index].name] = inputs[index].value;
       } else {
-        return 'Form Invalid';
+        return 'Form contains invalid input';
       }
     }
 
@@ -28454,6 +28487,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _Name = _interopRequireDefault(require("./Name"));
 
+var _Number = _interopRequireDefault(require("./Number"));
+
 var _validation = _interopRequireDefault(require("./validation"));
 
 var _Submit = _interopRequireDefault(require("./Submit"));
@@ -28468,10 +28503,37 @@ var Form = function Form() {
     name: "first_name",
     label: "First Name",
     max: "25",
-    required: "1",
     value: '',
     Validate: function Validate(Name) {
       return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyText], Name);
+    }
+  }), _react.default.createElement(_Name.default, {
+    name: "surname",
+    label: "Surname",
+    max: "25",
+    value: '',
+    Validate: function Validate(Name) {
+      return _validation.default.ValidateInput([_validation.default.OnlyText], Name);
+    }
+  }), _react.default.createElement(_Number.default, {
+    name: "area_code",
+    label: "Area Code",
+    value: '',
+    min: 1000,
+    max: 99999,
+    step: 1,
+    Validate: function Validate(number) {
+      return _validation.default.ValidateInput([_validation.default.OnlyNumeric], number);
+    }
+  }), _react.default.createElement(_Number.default, {
+    name: "phone_number",
+    label: "Phone Number",
+    value: '',
+    min: 0,
+    max: 9999999999999,
+    step: 1,
+    Validate: function Validate(number) {
+      return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyNumeric], number);
     }
   }), _react.default.createElement(_Submit.default, {
     text: "Submit Form",
@@ -28481,7 +28543,7 @@ var Form = function Form() {
 
 var _default = Form;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./validation":"Components/validation.js","./Submit":"Components/Submit.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./Number":"Components/Number.js","./validation":"Components/validation.js","./Submit":"Components/Submit.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30890,7 +30952,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43497" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41925" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
