@@ -28298,9 +28298,13 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Name = function Name(data) {
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("label", {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+    style: data.style
+  }, _react.default.createElement("label", {
     style: {
-      marginRight: '5px'
+      marginRight: '5px',
+      display: 'table-cell',
+      width: '160px'
     }
   }, data.label, ":"), _react.default.createElement("input", {
     type: "text",
@@ -28311,7 +28315,7 @@ var Name = function Name(data) {
     onChange: function onChange(e) {
       return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
     }
-  }));
+  })));
 };
 
 var _default = Name;
@@ -28329,9 +28333,13 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Number = function Number(data) {
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("label", {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+    style: data.style
+  }, _react.default.createElement("label", {
     style: {
-      marginRight: '5px'
+      marginRight: '5px',
+      display: 'table-cell',
+      width: '160px'
     }
   }, data.label, ":"), _react.default.createElement("input", {
     type: "number",
@@ -28344,7 +28352,7 @@ var Number = function Number(data) {
     onChange: function onChange(e) {
       return e.currentTarget.setCustomValidity(data.Validate(e.currentTarget.value).message);
     }
-  }));
+  })));
 };
 
 var _default = Number;
@@ -28474,101 +28482,7 @@ var Submit = function Submit(data) {
 
 var _default = Submit;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Components/Form.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Name = _interopRequireDefault(require("./Name"));
-
-var _Number = _interopRequireDefault(require("./Number"));
-
-var _validation = _interopRequireDefault(require("./validation"));
-
-var _Submit = _interopRequireDefault(require("./Submit"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// reusable form component goes here
-// should be generic, with no code related to one specific type of form
-// see the REUSABLE COMPONENT section for details
-var Form = function Form() {
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("form", null, _react.default.createElement(_Name.default, {
-    name: "first_name",
-    label: "First Name",
-    max: "25",
-    value: '',
-    required: true,
-    Validate: function Validate(Name) {
-      return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyText], Name);
-    }
-  }), _react.default.createElement(_Name.default, {
-    name: "surname",
-    label: "Surname",
-    max: "25",
-    value: '',
-    required: false,
-    Validate: function Validate(Name) {
-      return _validation.default.ValidateInput([_validation.default.OnlyText], Name);
-    }
-  }), _react.default.createElement(_Number.default, {
-    name: "area_code",
-    label: "Area Code",
-    value: '',
-    required: false,
-    min: 1000,
-    max: 99999,
-    step: 1,
-    Validate: function Validate(number) {
-      return _validation.default.ValidateInput([_validation.default.OnlyNumeric], number);
-    }
-  }), _react.default.createElement(_Number.default, {
-    name: "phone_number",
-    label: "Phone Number",
-    value: '',
-    required: true,
-    min: 0,
-    max: 9999999999999,
-    step: 1,
-    Validate: function Validate(number) {
-      return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyNumeric], number);
-    }
-  }), _react.default.createElement(_Submit.default, {
-    text: "Submit Form",
-    formName: "react-root"
-  })));
-};
-
-var _default = Form;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./Number":"Components/Number.js","./validation":"Components/validation.js","./Submit":"Components/Submit.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Form = _interopRequireDefault(require("../Components/Form"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// code related to a specific form goes here, using the imported generic Form component
-// see the SINGLE IMPLEMENTATION section for details
-var UserContactForm = function UserContactForm() {
-  return _react.default.createElement(_Form.default, null);
-};
-
-var _default = UserContactForm;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","../Components/Form":"Components/Form.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30584,7 +30498,112 @@ var ClassNames = (0, _emotionElement57a3a7a3BrowserEsm.w)(function (props, conte
   });
 });
 exports.ClassNames = ClassNames;
-},{"@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","@emotion/cache":"../node_modules/@emotion/cache/dist/cache.browser.esm.js","./emotion-element-57a3a7a3.browser.esm.js":"../node_modules/@emotion/core/dist/emotion-element-57a3a7a3.browser.esm.js","@emotion/utils":"../node_modules/@emotion/utils/dist/utils.browser.esm.js","@emotion/serialize":"../node_modules/@emotion/serialize/dist/serialize.browser.esm.js","@emotion/sheet":"../node_modules/@emotion/sheet/dist/sheet.browser.esm.js","@emotion/css":"../node_modules/@emotion/css/dist/css.browser.esm.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","@emotion/cache":"../node_modules/@emotion/cache/dist/cache.browser.esm.js","./emotion-element-57a3a7a3.browser.esm.js":"../node_modules/@emotion/core/dist/emotion-element-57a3a7a3.browser.esm.js","@emotion/utils":"../node_modules/@emotion/utils/dist/utils.browser.esm.js","@emotion/serialize":"../node_modules/@emotion/serialize/dist/serialize.browser.esm.js","@emotion/sheet":"../node_modules/@emotion/sheet/dist/sheet.browser.esm.js","@emotion/css":"../node_modules/@emotion/css/dist/css.browser.esm.js"}],"Components/Form.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Name = _interopRequireDefault(require("./Name"));
+
+var _Number = _interopRequireDefault(require("./Number"));
+
+var _validation = _interopRequireDefault(require("./validation"));
+
+var _Submit = _interopRequireDefault(require("./Submit"));
+
+var _core = require("@emotion/core");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// reusable form component goes here
+// should be generic, with no code related to one specific type of form
+// see the REUSABLE COMPONENT section for details
+var inputStyles = {
+  display: 'table',
+  margin: '10px'
+};
+
+var Form = function Form() {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("form", null, _react.default.createElement(_Name.default, {
+    name: "first_name",
+    label: "First Name",
+    max: "25",
+    value: '',
+    required: true,
+    Validate: function Validate(Name) {
+      return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyText], Name);
+    },
+    style: inputStyles
+  }), _react.default.createElement(_Name.default, {
+    name: "surname",
+    label: "Surname",
+    max: "25",
+    value: '',
+    required: false,
+    Validate: function Validate(Name) {
+      return _validation.default.ValidateInput([_validation.default.OnlyText], Name);
+    },
+    style: inputStyles
+  }), _react.default.createElement(_Number.default, {
+    name: "area_code",
+    label: "Area Code",
+    value: '',
+    required: false,
+    min: 1000,
+    max: 99999,
+    step: 1,
+    Validate: function Validate(number) {
+      return _validation.default.ValidateInput([_validation.default.OnlyNumeric], number);
+    },
+    style: inputStyles
+  }), _react.default.createElement(_Number.default, {
+    name: "phone_number",
+    label: "Phone Number",
+    value: '',
+    required: true,
+    min: 0,
+    max: 9999999999999,
+    step: 1,
+    Validate: function Validate(number) {
+      return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyNumeric], number);
+    },
+    style: inputStyles
+  }), _react.default.createElement(_Submit.default, {
+    text: "Submit Form",
+    formName: "react-root"
+  })));
+};
+
+var _default = Form;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./Number":"Components/Number.js","./validation":"Components/validation.js","./Submit":"Components/Submit.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Form = _interopRequireDefault(require("../Components/Form"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// code related to a specific form goes here, using the imported generic Form component
+// see the SINGLE IMPLEMENTATION section for details
+var UserContactForm = function UserContactForm() {
+  return _react.default.createElement(_Form.default, null);
+};
+
+var _default = UserContactForm;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../Components/Form":"Components/Form.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -30955,7 +30974,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43637" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39397" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
