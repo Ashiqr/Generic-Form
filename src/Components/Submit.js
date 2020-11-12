@@ -2,8 +2,8 @@ import React from 'react';
 
 const Submit = (data) => {
 
-    const getFormData = (e) =>{
-        var container = document.getElementById(data.formName);
+    const getInputsData = (formName) => {
+        var container = document.getElementById(formName);
         var inputs = container.getElementsByTagName('input');
         var result = {};
         for (var index = 0; index < inputs.length; ++index) {
@@ -11,9 +11,26 @@ const Submit = (data) => {
                 result[inputs[index].name] = inputs[index].value;
             }
             else{
-                return 'Form contains invalid input';
+                return false;
             }
         }
+        return result;
+    }
+    const getSelectsData = (formName) => {
+        var container = document.getElementById(formName);
+        var selects = container.getElementsByTagName('select');
+        var result = {};
+        for (var index = 0; index < selects.length; ++index) {
+            result[selects[index].name] = selects[index].value;
+        }
+        return result;
+    }
+    const getFormData = (e) =>{
+        var result = getInputsData(data.formName);
+        if (!result){
+            return 'Form has invalid input';
+        }
+        result = Object.assign({}, result, getSelectsData(data.formName));
         e.preventDefault();
         return result;
     }
