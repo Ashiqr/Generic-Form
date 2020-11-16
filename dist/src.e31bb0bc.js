@@ -28390,6 +28390,40 @@ var SelectOption = function SelectOption(data) {
 
 var _default = SelectOption;
 exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"Components/RadioOption.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RadioOption = function RadioOption(data) {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+    style: data.style
+  }, _react.default.createElement("label", {
+    style: {
+      marginRight: '5px',
+      display: 'table-cell',
+      width: '160px'
+    }
+  }, data.label, ":"), data.options.map(function (option) {
+    return _react.default.createElement("label", {
+      key: option.value
+    }, _react.default.createElement("input", {
+      type: "radio",
+      name: data.name,
+      value: option.value
+    }), option.label);
+  })));
+};
+
+var _default = RadioOption;
+exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"Components/validation.js":[function(require,module,exports) {
 function ValidateInput(functions, input) {
   for (var fun in functions) {
@@ -28477,11 +28511,32 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Submit = function Submit(data) {
+  var _useState = (0, _react.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      showMessage = _useState2[0],
+      setShowMessage = _useState2[1];
+
+  var ignoreInputs = ['radio'];
+
   var getInputsData = function getInputsData(formName) {
     var container = document.getElementById(formName);
     var inputs = container.getElementsByTagName('input');
@@ -28489,7 +28544,9 @@ var Submit = function Submit(data) {
 
     for (var index = 0; index < inputs.length; ++index) {
       if (inputs[index].checkValidity()) {
-        result[inputs[index].name] = inputs[index].value;
+        if (!ignoreInputs.includes(inputs[index].type.toLowerCase())) {
+          result[inputs[index].name] = inputs[index].value;
+        }
       } else {
         return false;
       }
@@ -28510,6 +28567,17 @@ var Submit = function Submit(data) {
     return result;
   };
 
+  var getRadioData = function getRadioData(formName, currentInput) {
+    var container = document.getElementById(formName);
+    var checkRadio = container.querySelectorAll('input[type=radio]:checked');
+
+    for (var index = 0; index < checkRadio.length; ++index) {
+      currentInput[checkRadio[index].name] = checkRadio[index].value;
+    }
+
+    return currentInput;
+  };
+
   var getFormData = function getFormData(e) {
     var result = getInputsData(data.formName);
 
@@ -28517,12 +28585,14 @@ var Submit = function Submit(data) {
       return 'Form has invalid input';
     }
 
-    result = Object.assign({}, result, getSelectsData(data.formName));
+    result = Object.assign({}, result, getSelectsData(data.formName), getRadioData(data.formName, result));
     e.preventDefault();
+    setShowMessage(true);
     return result;
   };
 
   var handleSubmit = function handleSubmit(e) {
+    setShowMessage(false);
     console.log(getFormData(e));
   };
 
@@ -28533,7 +28603,7 @@ var Submit = function Submit(data) {
   }, _react.default.createElement("button", {
     type: "submit",
     onClick: handleSubmit
-  }, data.text)));
+  }, data.text), showMessage ? _react.default.createElement("p", null, 'Form Submitted! See console log') : null));
 };
 
 var _default = Submit;
@@ -28553,6 +28623,8 @@ var _Name = _interopRequireDefault(require("./Name"));
 var _Number = _interopRequireDefault(require("./Number"));
 
 var _SelectOption = _interopRequireDefault(require("./SelectOption"));
+
+var _RadioOption = _interopRequireDefault(require("./RadioOption"));
 
 var _validation = _interopRequireDefault(require("./validation"));
 
@@ -28633,6 +28705,17 @@ var Form = function Form() {
       return _validation.default.ValidateInput([_validation.default.RequiredInput, _validation.default.OnlyNumeric], number);
     },
     style: inputStyles
+  }), _react.default.createElement(_RadioOption.default, {
+    name: "gender",
+    label: "Gender",
+    options: [{
+      value: '1',
+      label: 'Male'
+    }, {
+      value: '2',
+      label: 'Female'
+    }],
+    style: inputStyles
   }), _react.default.createElement(_Submit.default, {
     text: "Submit Form",
     formName: "react-root"
@@ -28641,7 +28724,7 @@ var Form = function Form() {
 
 var _default = Form;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./Number":"Components/Number.js","./SelectOption":"Components/SelectOption.js","./validation":"Components/validation.js","./Submit":"Components/Submit.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Name":"Components/Name.js","./Number":"Components/Number.js","./SelectOption":"Components/SelectOption.js","./RadioOption":"Components/RadioOption.js","./validation":"Components/validation.js","./Submit":"Components/Submit.js"}],"Forms/UserContactForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31050,7 +31133,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45101" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42647" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
